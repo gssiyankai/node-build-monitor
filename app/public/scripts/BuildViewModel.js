@@ -47,8 +47,16 @@ define(['ko', 'moment', 'countdown'], function (ko, moment, countdown) {
 
         this.time = ko.forcibleComputed(function () {
             return this.isRunning() ?
-                'started ' + moment(this.startedAt()).fromNow() :
-                'finished ' + moment(this.finishedAt()).fromNow();
+                'Started on ' + moment(this.startedAt()).format().
+                               replace(/T/, ' ').
+                               replace(/\..+/, '').
+                               replace(/\+.*/, '').
+                               replace(/\ /, ' at '):
+                'Finished on ' + moment(this.finishedAt()).format().
+                               replace(/T/, ' ').
+                               replace(/\..+/, '').
+                               replace(/\+.*/, '').
+                               replace(/\ /, ' at ');
         }, this);
 
         this.duration = ko.forcibleComputed(function () {
